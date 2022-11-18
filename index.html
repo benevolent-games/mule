@@ -1,0 +1,44 @@
+<!doctype html>
+<head>
+	<html>
+	<meta charset="utf-8"/>
+	<meta name=viewport content="width=device-width, initial-scale=1"/>
+	<meta name=darkreader content="dark"/>
+	<title>mule</title>
+
+	<link rel=stylesheet href="/index.css"/>
+	<script
+		type=importmap-shim
+		src="/x/importmap.json"
+		defer
+	></script>
+	<script
+		type=module-shim
+		src="/x/html.js"
+		defer
+	></script>
+	<script
+		src="/node_modules/es-module-shims/dist/es-module-shims.wasm.js"
+		defer
+	></script>
+</head>
+<body>
+
+	<header>
+		<h1><span>donkey emoji</span>mule</h1>
+		<p>inventory management system for web games</p>
+		<p>powering <a href="https://benevolent.games/">benevolent.games</a></p>
+		<p>see mule on <a href="https://github.com/benevolent-games/mule">github</a></p>
+	</header>
+
+		<mule-inventory>
+			<mule-pack size="8x4"></mule-pack>
+			<mule-pack-trade size="8x4"></mule-pack-trade>
+			<mule-pack-nearby size="8x4"></mule-pack-nearby>
+			<div>
+				<mule-character-equipment></mule-character-equipment>
+			</div>
+		</mule-inventory>
+
+</body>
+</html>
