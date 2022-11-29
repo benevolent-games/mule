@@ -7,7 +7,9 @@ export const PrimaryItemsView = view(use => (size) => {
 
 	return html`
 		<div class=primary-items>
-			${items.map(item => html`<div class=item></div>`)}
+			${items.map(item => html`<div class=item-box>
+				<div class=item></div>
+			</div>`)}
 		</div>
 	`
 })

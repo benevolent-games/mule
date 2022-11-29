@@ -7,6 +7,6 @@ export const styles = css`
 	}
 	slot {
 		display: flex;
-		gap: 1em;
+		gap: 2em;
 	}
 `

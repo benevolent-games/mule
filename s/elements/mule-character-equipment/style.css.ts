@@ -15,7 +15,7 @@ export const styles = css`
 	}
 	.items {
 		display: flex;
-		gap: 0.3em;
+		gap: 0.5em;
 		flex-direction: column;
 	}
 	.item {
