@@ -1,7 +1,7 @@
 {
 	"name": "@benev/mule",
 	"version": "0.0.0",
-	"description": "user-input system for web games",
+	"description": "inventory system for web games",
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
 	"type": "module",
