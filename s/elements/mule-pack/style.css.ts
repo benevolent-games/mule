@@ -6,7 +6,7 @@ export const styles = css`
 		display: grid;
 		gap: 0.3em;
 	}
-	.item {
+	.item-box {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -18,6 +18,13 @@ export const styles = css`
 		display: flex;
 		gap: 0.3em;
 		margin-top: 1em;
+	}
+	.item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 60px;
+		height: 60px;
 	}
 
 `
