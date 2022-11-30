@@ -2,6 +2,9 @@ import {css} from "@chasemoskal/magical/x/camel-css/camel-css-lit.js"
 
 export const styles = css`
 	:host {}
+	:host([closed]) {
+		display: none;
+	}
 	.grid {
 		display: grid;
 		gap: 0.3em;
