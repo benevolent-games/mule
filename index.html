@@ -31,14 +31,21 @@
 		<p>see mule on <a href="https://github.com/benevolent-games/mule">github</a></p>
 	</header>
 
-		<mule-inventory>
-			<div>
-				<mule-character-equipment></mule-character-equipment>
-			</div>
+	<mule-inventory>
+		<div class=character-eq>
+			<mule-pack character size="1x5"></mule-pack>
+				<mule-character-equipment>
+					some character here
+				</mule-character-equipment>
+			<mule-pack character size="1x5"></mule-pack>
+		</div>
+		<div class=inventory-items>
 			<mule-pack size="8x4"></mule-pack>
-			<mule-pack-trade size="8x4"></mule-pack-trade>
-			<mule-pack-nearby size="8x4"></mule-pack-nearby>
-		</mule-inventory>
+			<mule-pack primary size="8x1"></mule-pack>
+		</div>
+		<mule-pack closed nearby size="5x5"></mule-pack>
+		<mule-pack closed trade size="5x5"></mule-pack>
+	</mule-inventory>
 
 </body>
 </html>

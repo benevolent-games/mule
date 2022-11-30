@@ -4,11 +4,17 @@ import {view} from "@chasemoskal/magical/x/view/view.js"
 import {setupDragHandler} from "../events/drag-handler.js"
 
 export const ItemsView = view(use => (size) => {
-	const items = new Array(size.columns * size.rows).fill(undefined)
+	const itemsArray = new Array(size.columns * size.rows).fill(undefined).fill("item", 0, 1)
+	const [items, setItems] = use.state(itemsArray)
 	const [draggedElement, setDraggedElement] = use.state<HTMLElement | null>(null)
-	items[0] = "item"
-
-	const dragHandler = setupDragHandler(draggedElement, setDraggedElement)
+	
+	const dragHandlerDekstop = setupDragHandler(
+		draggedElement,
+		setDraggedElement,
+		items,
+		setItems,
+		)
+		.dragHandlerDesktop()
 
 	return html`
 		<div style=${`
@@ -16,15 +22,15 @@ export const ItemsView = view(use => (size) => {
 			grid-template-rows: repeat(${size.rows}, 60px);
 			`} class="grid items">
 			${items.map((item, i) => html`<div class=item-box>
-				<div draggable="true"
+				<div draggable=${item ? true : false}
 				data-index=${i}
 				class=item
-				@dragstart=${dragHandler.dragStart}
-				@drag=${dragHandler.drag}
-				@dragend=${dragHandler.dragEnd}
-				@drop=${dragHandler.drop}
-				@dragenter=${dragHandler.dragEnter}
-				@dragover=${dragHandler.dragOver}
+				@dragstart=${dragHandlerDekstop.dragStart}
+				@drag=${dragHandlerDekstop.drag}
+				@dragend=${dragHandlerDekstop.dragEnd}
+				@drop=${dragHandlerDekstop.drop}
+				@dragenter=${dragHandlerDekstop.dragEnter}
+				@dragover=${dragHandlerDekstop.dragOver}
 				>
 				${item}
 			</div>

@@ -38,3 +38,12 @@ h1 {
 	margin-left: -5px;
 }
 
+.character-eq {
+	display: flex;
+}
+
+.inventory-items {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
