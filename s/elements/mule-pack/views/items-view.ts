@@ -3,16 +3,35 @@ import {html} from "lit"
 import {view} from "@chasemoskal/magical/x/view/view.js"
 import {setupDragHandler} from "../events/drag-handler.js"
 
-export const ItemsView = view(use => (size) => {
-	const itemsArray = new Array(size.columns * size.rows).fill(undefined).fill("item", 0, 1)
-	const [items, setItems] = use.state(itemsArray)
-	const [draggedElement, setDraggedElement] = use.state<HTMLElement | null>(null)
+export const ItemsView = view(use => (size, items: any[], setItems, packIndex: number) => {
+	// const itemsArray = new Array(size.columns * size.rows).fill(undefined).fill("item", 0, 1)
+	// const [items, setItems] = use.state(packItems)
+	const [draggedElement, setDraggedElement] = use.state<{
+		from: {
+			mulePack: number | null,
+			mulePackBox: HTMLElement | null
+		},
+		to: {
+			mulePack: number | null,
+			mulePackBox: HTMLElement | null
+		}
+	}>({
+		from: {
+			mulePack: null,
+			mulePackBox: null
+		},
+		to: {
+			mulePack: null,
+			mulePackBox: null
+		}
+	})
 	
 	const dragHandlerDekstop = setupDragHandler(
 		draggedElement,
 		setDraggedElement,
 		items,
 		setItems,
+		packIndex
 		)
 		.dragHandlerDesktop()
 
