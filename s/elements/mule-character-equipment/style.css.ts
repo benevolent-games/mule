@@ -1,9 +1,12 @@
-// import {css} from "@chasemoskal/magical/x/camel-css/camel-css-lit.js"
+import {css} from "@chasemoskal/magical/x/camel-css/camel-css-lit.js"
 
-// export const styles = css`
-// 	:host {
-
-// 	}
+export const styles = css`
+	:host {
+		box-shadow: inset 0px 0px 24px 0px rgba(66, 68, 90, 1);
+		height: 100%;
+		width: 150px;
+		margin: 0 1em;
+ 	}
 // 	.container {
 // 		display: flex;
 // 		gap: 0.3em;
@@ -23,4 +26,4 @@
 // 		height: 60px;
 // 		background-color: #ffffff1c;
 // 	}
-// `
+`

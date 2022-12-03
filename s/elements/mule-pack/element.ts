@@ -17,7 +17,7 @@ export const MulePack = element<{
 	const packSize = getPackSize(use.element.size)
 
 	return html`
-		<div>
+		<div style="height: 100%;">
 			${ItemsView(packSize)}
 		</div>
 	`

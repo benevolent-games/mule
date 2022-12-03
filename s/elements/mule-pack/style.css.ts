@@ -8,6 +8,7 @@ export const styles = css`
 	.grid {
 		display: grid;
 		gap: 0.3em;
+		height: 100%;
 	}
 	.item-box {
 		display: flex;

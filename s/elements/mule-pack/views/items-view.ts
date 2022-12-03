@@ -18,8 +18,8 @@ export const ItemsView = view(use => (size) => {
 
 	return html`
 		<div style=${`
-			grid-template-columns: repeat(${size.columns}, 60px);
-			grid-template-rows: repeat(${size.rows}, 60px);
+			grid-template-columns: repeat(${size.columns}, auto);
+			grid-template-rows: repeat(${size.rows}, auto);
 			`} class="grid items">
 			${items.map((item, i) => html`<div class=item-box>
 				<div draggable=${item ? true : false}

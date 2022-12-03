@@ -47,3 +47,7 @@ h1 {
 	flex-direction: column;
 	gap: 1em;
 }
+
+mule-character-equipment {
+	margin: 0 1em;
+}
