@@ -9,9 +9,9 @@
 
 html {
 	font-family: "Gentium Book Basic", serif;
-	/* background: fixed linear-gradient(135deg, #321b41, #160c1d); */
-	background: fixed linear-gradient(180deg, #1b2941, #0c0511);
+	background: linear-gradient(to right top, #662d03, #703307, #79390c, #834010, #8d4614, #8d4614, #8d4614, #8d4614, #834010, #79390c, #703307, #662d03);
 	color: whitesmoke;
+	height: 100%;
 }
 
 header {
