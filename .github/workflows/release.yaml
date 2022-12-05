@@ -60,6 +60,11 @@ jobs:
         cp -r node_modules/ x/
         cp -r s/ x/
 
+    - name: ✍️ write cname and nojekyll
+      run: |
+        touch x/.nojekyll
+        echo "mule.benevolent.games" > x/CNAME
+
     - name: ⚙️ configure pages
       uses: actions/configure-pages@v2
 
