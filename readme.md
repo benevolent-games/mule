@@ -4,7 +4,7 @@
 
 mule is a configurable inventory system for web games, and has web ui to allow players to interact with their inventories and perform common actions.
 
-⚡ live demo (coming soon)  
+⚡ [**live demo!** — mule.benevolent.games](https://mule.benevolent.games/)  
 ⚡ works with any web game engine  
 ⚡ framework-agnostic web components  
 ⚡ written in typescript  
