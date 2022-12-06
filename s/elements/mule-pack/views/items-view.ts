@@ -2,18 +2,15 @@
 import {html} from "lit"
 import {view} from "@chasemoskal/magical/x/view/view.js"
 import {setupDragHandler} from "../events/drag-handler.js"
+import {MulePack} from "../element.js"
 
-export const ItemsView = view(use => (size) => {
-	const itemsArray = new Array(size.columns * size.rows).fill(undefined).fill("item", 0, 1)
-	const [items, setItems] = use.state(itemsArray)
-	const [draggedElement, setDraggedElement] = use.state<HTMLElement | null>(null)
-	
-	const dragHandlerDekstop = setupDragHandler(
-		draggedElement,
-		setDraggedElement,
-		items,
-		setItems,
-		)
+export const ItemsView = view(use => (
+	size: {columns: number, rows: number},
+	items: any[],
+	MulePack: MulePack
+	) => {
+
+	const dragHandlerDekstop = setupDragHandler(MulePack)
 		.dragHandlerDesktop()
 
 	return html`

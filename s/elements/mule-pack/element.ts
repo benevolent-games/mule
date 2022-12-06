@@ -1,24 +1,53 @@
-import {component2 as element} from "@chasemoskal/magical/x/component.js"
-import {html} from "lit"
+import {CSSResultGroup, html, LitElement} from "lit"
 import {styles} from "./style.css.js"
 import {getPackSize} from "./utils/get-pack-size.js"
 import {ItemsView} from "./views/items-view.js"
+import {property} from 'lit/decorators.js';
 
-export const MulePack = element<{
-	size: string
-}>({
-	shadow: true,
-	styles: styles,
-	properties: {
-		size: {type: String}
+export interface ItemProps {
+	itemIndex: number
+	item?: any
+}
+export class MulePack extends LitElement {
+	static styles?: CSSResultGroup | undefined = styles
+
+	@property()
+	size: string = ''
+
+	@property({attribute: false})
+	items: any[] = []
+
+	connectedCallback() {
+		super.connectedCallback()
+		if (this.size) {
+			const packSize = getPackSize(this.size)
+			this.items = new Array(packSize.columns * packSize.rows).fill(undefined).fill("item", 0, 1)
+		}
 	}
-}).render(use => {
 
-	const packSize = getPackSize(use.element.size)
-
-	return html`
+	render() {
+		const packSize = getPackSize(this.size)
+		return html`
 		<div style="height: 100%;">
-			${ItemsView(packSize)}
+			${ItemsView(
+				packSize,
+				this.items,
+				this)}
 		</div>
-	`
-})
+		`
+	}
+
+	addItem({itemIndex, item}: ItemProps) {
+		const newItems = this.items.slice()
+		newItems[itemIndex] = item
+		this.items = newItems
+		
+	}
+
+	removeItem({itemIndex, item}: ItemProps) {
+		const newItems = this.items.slice()
+		newItems[itemIndex] = undefined
+		this.items = newItems
+	}
+
+}

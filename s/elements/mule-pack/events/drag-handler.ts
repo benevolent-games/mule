@@ -1,18 +1,18 @@
-import {StateSetter} from "@chasemoskal/magical/x/view/types.js"
+import {MuleInventory} from "../../mule-inventory/element.js"
+import {MulePack} from "../element.js"
 
 export function setupDragHandler(
-	draggedElement: HTMLElement | null,
-	setDraggedElement: StateSetter<HTMLElement | null>,
-	items: any[],
-	setItems: StateSetter<any[]>) {
+	MulePack: MulePack
+) {
 	return {
 		dragHandlerDesktop: () => {
 			return {
 				dragStart: (event: DragEvent) => {
 					const target = <HTMLElement>event.target
-					setDraggedElement(target)
-					const boolean = target.getAttribute('draggable')
-					if (boolean == "false" && event.dataTransfer) {
+					const index = Number(target.dataset.index)
+					const isDraggable = target.getAttribute('draggable')
+					MuleInventory.handleStart({itemIndex: index, item: 'item', MulePack: MulePack})
+					if (isDraggable == "false" && event.dataTransfer) {
 						event.dataTransfer.effectAllowed = 'none'
 					}
 				},
@@ -22,13 +22,9 @@ export function setupDragHandler(
 				},
 				drop: (event: DragEvent) => {
 					const target = <HTMLElement>event.target
-					if (target && draggedElement && target != draggedElement) {
+					if (target) {
 						const indexOfElementItemIsDroppedTo = Number(target.dataset.index)
-						const indexOfDraggedElement = Number(draggedElement.dataset.index)
-						const itemsCopy = [...items]
-						itemsCopy[indexOfElementItemIsDroppedTo] = itemsCopy[indexOfDraggedElement]
-						itemsCopy[indexOfDraggedElement] = undefined
-						setItems(itemsCopy)
+						MuleInventory.handleDrop({itemIndex: indexOfElementItemIsDroppedTo, MulePack: MulePack})
 					}
 				},
 				dragEnter: (event: DragEvent) => {
