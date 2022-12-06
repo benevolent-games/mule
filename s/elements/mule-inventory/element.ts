@@ -59,17 +59,17 @@ export class MuleInventory extends LitElement {
 	static handleTrade() {
 		if (this.tradeProps.from.MulePack == this.tradeProps.to.MulePack && 
 				this.tradeProps.from.itemIndex == this.tradeProps.to.itemIndex) {
-			this.clearHandleProps()
+			this.clearTradeProps()
 			return
 		} else {
 			this.tradeProps.to.MulePack?.addItem(this.tradeProps.to)
 			this.tradeProps.from.MulePack?.removeItem(this.tradeProps.from)
-			this.clearHandleProps()
+			this.clearTradeProps()
 		}
 	}
 
-	private static clearHandleProps() {
-		MuleInventory.tradeProps = {
+	private static clearTradeProps() {
+		this.tradeProps = {
 			from: {
 				itemIndex: 0,
 				item: '',
