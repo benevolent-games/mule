@@ -4,7 +4,7 @@ import {component2 as element} from "@chasemoskal/magical/x/component.js"
 
 import {styles} from "./style.css.js"
 import {trade} from "../../utils/trade.js"
-import {MulePack} from "../mule-pack/element2.js"
+import {MulePack} from "../mule-pack/element.js"
 
 export type MuleInventory = InstanceType<typeof MuleInventory>
 
