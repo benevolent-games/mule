@@ -1,6 +1,6 @@
 
 import {styles} from "./style.css.js"
-import {MuleInventory} from '../mule-inventory/element2.js'
+import {MuleInventory} from '../mule-inventory/element.js'
 import {component2 as element} from '@chasemoskal/magical/x/component.js'
 import {initializeBoxes} from "./utils/initialize-boxes.js"
 import {trade} from "../../utils/trade.js"

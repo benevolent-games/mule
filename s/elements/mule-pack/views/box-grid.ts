@@ -1,7 +1,6 @@
 
 import {html} from "lit"
 import {view} from "@chasemoskal/magical/x/view/view.js"
-import {Box} from "../element2.js"
 import {getPackSize} from "../utils/get-pack-size.js"
 import {BoxGridProps} from "../../../types.js"
 
