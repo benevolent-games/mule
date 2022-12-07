@@ -2,19 +2,10 @@
 import {styles} from "./style.css.js"
 import {MuleInventory} from '../mule-inventory/element2.js'
 import {component2 as element} from '@chasemoskal/magical/x/component.js'
+import {initializeBoxes} from "./utils/initialize-boxes.js"
 import {trade} from "../../utils/trade.js"
-
-type Item = any
-
-export interface Box {
-	item: Item
-	quantity: number
-}
-
-export interface Drag {
-	index: number
-	box: Box
-}
+import {BoxGrid} from "./views/box-grid.js"
+import {Box, Drag} from "../../types.js"
 
 export type MulePack = InstanceType<typeof MulePack>
 
@@ -38,7 +29,7 @@ export const MulePack = element<{
 
 	// TODO initialize boxes
 	const [boxes, setBoxes, getBoxes]
-		= use.state<Box[]>(initializeBoxes(use.element.size))
+		= use.state<Box[]>(() => initializeBoxes(use.element.size))
 
 	const [drag, setDrag, getDrag]
 		= use.state<undefined | {
@@ -61,8 +52,10 @@ export const MulePack = element<{
 	use.setup(() => {
 		use.element.getDrag = getDrag
 		use.element.getBox = index => getBoxes()[index]!
-		use.element.setBox = item => {
-			// TODO implement
+		use.element.setBox = (index, item) => {
+			const newBoxes = [...getBoxes()]
+			newBoxes[index] = item
+			setBoxes(newBoxes)
 		}
 		use.element.clearBox = item => {
 			// TODO implement
