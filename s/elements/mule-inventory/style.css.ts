@@ -8,5 +8,7 @@ export const styles = css`
 	slot {
 		display: flex;
 		gap: 2em;
+		width: 100%;
+		justify-content: center;
 	}
 `
