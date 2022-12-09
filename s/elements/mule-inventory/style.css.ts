@@ -4,6 +4,7 @@ export const styles = css`
 	:host {
 		display: flex;
 		justify-content: center;
+		touch-action: none;
 	}
 	slot {
 		display: flex;
