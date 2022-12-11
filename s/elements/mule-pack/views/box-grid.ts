@@ -18,17 +18,19 @@ export const BoxGrid = view(use => (
 			grid-template-rows: repeat(${gridSize.rows}, auto);
 			`} 
 		@pointerup=${(e: PointerEvent) => {
+			e.preventDefault()
 			const target = <HTMLElement>e.target
 			const itemBox = <HTMLElement>target.closest('.item')
 			if (itemBox) {
 				const i = Number(itemBox.dataset.index)
 				tradeHandlers.onTradeCommit(i)
 			}
-		}} 
+	}} 
+		@pointermove=${(e: PointerEvent) => e.preventDefault()}
 		class="grid items">
 			${boxes.map((box, i) => html`
 			<div class=item-box>
-				<div draggable=${box?.item ? true : false}
+				<div
 				data-index=${i}
 				class=item
 				@pointerdown=${(e: PointerEvent) => {

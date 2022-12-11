@@ -29,6 +29,11 @@ export const styles = css`
 		align-items: center;
 		width: 60px;
 		height: 60px;
+		z-index:1;
+		user-select: none;
 	}
-
+	.item[drag] {
+		 position: absolute;
+		z-index: 2;
+	}
 `
