@@ -1,52 +1,45 @@
 
 import {html} from "lit"
-import {component2 as element} from "@chasemoskal/magical/x/component.js"
+import {property} from "lit/decorators.js"
+import {MagicElement, mixinCss, UseElement} from "@chasemoskal/magical"
 
 import {styles} from "./style.css.js"
 import {trade} from "../../utils/trade.js"
 import {MulePack} from "../mule-pack/element.js"
 
-export type MuleInventory = InstanceType<typeof MuleInventory>
+@mixinCss(styles)
+export class MuleInventory extends MagicElement {
 
-export const MuleInventory = element<{
-		setSourcePack(p: undefined | MulePack): void
-		handleDrop(p: MulePack, i: number): void
-	}>({
-		styles,
-		shadow: true,
-		properties: {
-			setSourcePack: {attribute: false},
-			handleDrop: {attribute: false},
-		},
-	}).render(use => {
+	@property()
+	private sourcePack: MulePack | undefined
 
-	const [sourcePack, setSourcePack, getSourcePack]
-		= use.state<undefined | MulePack>(undefined)
+	setSourcePack(pack: MulePack | undefined) {
+		this.sourcePack = pack
+	}
 
-	use.setup(() => {
-		use.element.setSourcePack = setSourcePack
-		use.element.handleDrop = (
-				targetPack: MulePack,
-				targetIndex: number
-			) => {
-			const sourcePack = getSourcePack()
-			if (sourcePack) {
-				const drag = sourcePack.getDrag()
-				if (!drag)
-					throw new Error("invalid drag ended without a start")
-				trade({
-					source: {
-						pack: sourcePack,
-						index: drag.index,
-					},
-					target: {
-						pack: targetPack,
-						index: targetIndex,
-					},
-				})
-			}
+	handleDrop = (
+			targetPack: MulePack,
+			targetIndex: number
+		) => {
+		const {sourcePack} = this
+		if (sourcePack) {
+			const drag = sourcePack.getDrag()
+			if (!drag)
+				throw new Error("invalid drag ended without a start")
+			trade({
+				source: {
+					pack: sourcePack,
+					index: drag.index,
+				},
+				target: {
+					pack: targetPack,
+					index: targetIndex,
+				},
+			})
 		}
-	})
+	}
 
-	return html`<slot></slot>`
-})
+	realize(use: UseElement<typeof this>) {
+		return html`<slot></slot>`
+	}
+}

@@ -1,4 +1,4 @@
-import {css} from "@chasemoskal/magical/x/camel-css/camel-css-lit.js"
+import {css} from "@chasemoskal/magical/x/camel-css/lit.js"
 
 export const styles = css`
 	:host {}

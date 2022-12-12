@@ -1,10 +1,11 @@
 
 import {html} from "lit"
-import {view} from "@chasemoskal/magical/x/view/view.js"
-import {getPackSize} from "../utils/get-pack-size.js"
-import {BoxGridProps, Drag} from "../../../types.js"
+import {view} from "@chasemoskal/magical"
 
-export const BoxGrid = view(use => (
+import {BoxGridProps} from "../../../types.js"
+import {getPackSize} from "../utils/get-pack-size.js"
+
+export const BoxGrid = view({}, use => (
 	{boxes,
 	drag,
 	size,

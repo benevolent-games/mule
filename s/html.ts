@@ -1,5 +1,5 @@
 import {getElements, themeElements, registerElements} from "./main.js"
-import {css} from "@chasemoskal/magical/x/camel-css/camel-css-lit.js"
+import {css} from "@chasemoskal/magical/x/camel-css/lit.js"
 
 const themeCss = css`
 * {
