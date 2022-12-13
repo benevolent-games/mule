@@ -1,4 +1,6 @@
 
+import {StateSetter} from "@chasemoskal/magical/x/view/types.js"
+import {LitElement} from "lit"
 import {MulePack} from "./elements/mule-pack/element.js"
 
 type Item = any
@@ -14,11 +16,8 @@ export interface BoxGridProps {
 		index: number
 		box: Box
 	} | undefined
+	element: LitElement
 	size: string
-	tradeHandlers: {
-		onTradeStart(sourceIndex: number): void
-		onTradeCommit(targetIndex: number): void
-	}
 }
 
 export interface Box {
