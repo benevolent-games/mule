@@ -1,5 +1,5 @@
 import {Box} from "../../../types.js"
-import swordSvg from "../../demo.svg.js"
+import swordSvg from "../../sword.svg.js"
 import shieldSvg from "../../shield.svg.js"
 import {getPackSize} from "./get-pack-size.js"
 
