@@ -36,4 +36,7 @@ export const styles = css`
 		position: absolute;
 		pointer-events: none;
 	}
+	svg {
+		pointer-events: none;
+	}
 `
