@@ -100,7 +100,7 @@ export class MuleInventory extends MagicElement {
 					MulePack.onTradeStart(i)
 					draggable.pointerDown(e, MulePackBox)
 				}
-				target.releasePointerCapture(e.pointerId)
+				MulePackBox?.releasePointerCapture(e.pointerId)
 			})
 		})
 		return html`<slot></slot>`

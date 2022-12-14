@@ -29,10 +29,6 @@ export const BoxGrid = view({}, use => (
 			grid-template-columns: repeat(${gridSize.columns}, auto);
 			grid-template-rows: repeat(${gridSize.rows}, auto);
 			`} 
-			@pointerdown=${(e: PointerEvent) => {
-				const target = <HTMLElement>e.target
-				target.releasePointerCapture(e.pointerId)
-			}}
 			class="grid items">
 			${boxes.map((box, i) => html`
 			<div class=item-box>
