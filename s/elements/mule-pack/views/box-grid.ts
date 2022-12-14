@@ -1,48 +1,46 @@
 
-import {html} from "lit"
+import {css, html} from "lit"
 import {view} from "@chasemoskal/magical"
 
-import {BoxGridProps} from "../../../types.js"
+import {AnimiationStyles, BoxGridProps} from "../../../types.js"
 import {getPackSize} from "../utils/get-pack-size.js"
 
 export const BoxGrid = view({}, use => (
 	{boxes,
 	drag,
 	size,
-	tradeHandlers}: BoxGridProps) => {
+	animationStyles,
+	}: BoxGridProps) => {
 
 	const gridSize = getPackSize(size)
+
+	function getBoxDragStyles(style: AnimiationStyles, index: number) {
+		return Number(style.animatedBox?.dataset.index) == index
+			? `
+				top: ${style.styleTop};
+				left: ${style.styleLeft};
+				position: ${style.position};
+			`
+			: css``
+	}
 
 	return html`
 		<div style=${`
 			grid-template-columns: repeat(${gridSize.columns}, auto);
 			grid-template-rows: repeat(${gridSize.rows}, auto);
 			`} 
-		@pointerup=${(e: PointerEvent) => {
-			e.preventDefault()
-			const target = <HTMLElement>e.target
-			const itemBox = <HTMLElement>target.closest('.item')
-			if (itemBox) {
-				const i = Number(itemBox.dataset.index)
-				tradeHandlers.onTradeCommit(i)
-			}
-	}} 
-		@pointermove=${(e: PointerEvent) => e.preventDefault()}
-		class="grid items">
+			@pointerdown=${(e: PointerEvent) => {
+				const target = <HTMLElement>e.target
+				target.releasePointerCapture(e.pointerId)
+			}}
+			class="grid items">
 			${boxes.map((box, i) => html`
 			<div class=item-box>
 				<div
+				draggable=${box?.item ? true : false}
 				data-index=${i}
 				class=item
-				@pointerdown=${(e: PointerEvent) => {
-					const target = <HTMLElement>e.target
-					const itemBox = <HTMLElement>target.closest('.item')
-					if (itemBox && box.item) {
-						const i = Number(itemBox.dataset.index)
-						tradeHandlers.onTradeStart(i)
-					}
-					target.releasePointerCapture(e.pointerId);
-				}}
+				style="${getBoxDragStyles(animationStyles, i)}"
 				>
 				${box?.item}
 			</div>

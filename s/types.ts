@@ -1,4 +1,5 @@
 
+import {StateGetter, StateSetter} from "@chasemoskal/magical"
 import {MulePack} from "./elements/mule-pack/element.js"
 
 type Item = any
@@ -15,10 +16,7 @@ export interface BoxGridProps {
 		box: Box
 	} | undefined
 	size: string
-	tradeHandlers: {
-		onTradeStart(sourceIndex: number): void
-		onTradeCommit(targetIndex: number): void
-	}
+	animationStyles: AnimiationStyles
 }
 
 export interface Box {
@@ -31,3 +29,11 @@ export interface Drag {
 	box: Box
 }
 
+export interface AnimiationStyles {
+	animatedBox: HTMLElement | null
+	initialX: number
+	initialY: number
+	styleTop: string
+	styleLeft: string
+	position: string
+}

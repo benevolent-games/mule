@@ -33,7 +33,7 @@ export const styles = css`
 		user-select: none;
 	}
 	.item[drag] {
-		 position: absolute;
-		z-index: 2;
+		position: absolute;
+		pointer-events: none;
 	}
 `
