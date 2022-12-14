@@ -11,5 +11,6 @@ export const styles = css`
 		gap: 2em;
 		width: 100%;
 		justify-content: center;
+		flex-wrap: wrap;
 	}
 `
