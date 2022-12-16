@@ -54,7 +54,7 @@ export class MuleInventory extends MagicElement {
 
 		use.setup(() => {
 
-			function findBox(e: PointerEvent) {
+			function findBox(e: PointerEvent | KeyboardEvent) {
 				return e.composedPath().find(el => {
 					const element = <HTMLElement>el
 					return element.className == "item"
@@ -63,6 +63,28 @@ export class MuleInventory extends MagicElement {
 		
 			const draggable = makeDraggable(getDragState, setDragState)
 
+			this.addEventListener("keypress", (e: KeyboardEvent) => {
+				const target = <HTMLElement>e.target
+				const MulePackBox = <HTMLElement>findBox(e)
+				const notEmpty = MulePackBox?.draggable
+				const MulePack = <MulePack>target
+				const tradeStarted = this.sourcePack
+				if (MulePackBox && notEmpty && !tradeStarted) {
+					const i = Number(MulePackBox.dataset.index)
+					setDragState({
+						...dragState,
+						animatedBox: MulePackBox
+					})
+					MulePackBox.setAttribute("data-focus", "")
+					MulePack.onTradeStart(i)
+				}
+				if (tradeStarted) {
+					const i = Number(MulePackBox.dataset.index)
+					const focusedBox = getDragState().animatedBox
+					focusedBox?.removeAttribute("data-focus")
+					MulePack.onTradeCommit(i)
+				}
+			})
 			window.addEventListener("pointermove", (e: PointerEvent) => {
 				e.preventDefault()
 				if (this.sourcePack) {
@@ -76,9 +98,8 @@ export class MuleInventory extends MagicElement {
 				const MulePack = <MulePack><unknown>target
 				const box = <HTMLElement>findBox(e)
 				const state = getDragState()
-				const sourcePack = this.sourcePack
 				if (state.animatedBox) {
-					draggable.pointerUp(e, sourcePack)
+					draggable.pointerUp(e, this.sourcePack)
 				}
 				if (box && state.animatedBox) {
 					const i = Number(box.dataset.index)
