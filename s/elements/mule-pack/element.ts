@@ -52,17 +52,17 @@ export class MulePack extends MagicElement {
 	
 	onTradeCommit = (targetIndex: number) => {
 	if (this.inventory) {
-				this.inventory.handleDrop(this.use.element, targetIndex)
+				this.inventory.handleDrop(this, targetIndex)
 				this.inventory.setSourcePack(undefined)
 			}
 			else if (this.drag) {
 				trade({
 					source: {
-						pack: this.use.element,
+						pack: this,
 						index: this.drag.index,
 					},
 					target: {
-						pack: this.use.element,
+						pack: this,
 						index: targetIndex,
 					},
 				})
@@ -75,12 +75,12 @@ export class MulePack extends MagicElement {
 		throw new Error(`unknown box index ${sourceIndex}`)
 	this.setDrag({index: sourceIndex, box})
 	if (this.inventory)
-		this.inventory.setSourcePack(this.use.element)
+		this.inventory.setSourcePack(this)
 	}
 
 	firstUpdated() {
 		this.boxes = initializeBoxes(this.size)
-		this.inventory = this.use.element.closest<MuleInventory>("mule-inventory")
+		this.inventory = this.closest<MuleInventory>("mule-inventory")
 		super.firstUpdated()
 	}
 
@@ -89,7 +89,7 @@ export class MulePack extends MagicElement {
 		return BoxGrid({
 			boxes,
 			drag,
-			size: use.element.size,
+			size: this.size,
 			animationStyles: this.animationStyles,
 		})
 	}
