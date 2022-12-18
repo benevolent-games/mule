@@ -7,7 +7,9 @@ import {styles} from "./style.css.js"
 import {trade} from "../../utils/trade.js"
 import {AnimiationStyles} from "../../types.js"
 import {MulePack} from "../mule-pack/element.js"
+import {getPackSize} from "../mule-pack/utils/get-pack-size.js"
 import {makeDraggable} from "../mule-pack/utils/makeDraggable.js"
+import {borderBoxChecker} from "../mule-pack/utils/border-box-checker.js"
 
 @mixinCss(styles)
 export class MuleInventory extends MagicElement {
@@ -54,35 +56,90 @@ export class MuleInventory extends MagicElement {
 
 		use.setup(() => {
 
+			const mulePacks: Element[] = []
+			const queryMulePacks = this.shadowRoot?.querySelector("slot")?.assignedElements({flatten: true}).map(element => {
+				const queriedMulePacks = Array.from(element.querySelectorAll("mule-pack"))
+				if (queriedMulePacks.length > 0)
+					mulePacks.push(...queriedMulePacks)
+			})
+
 			function findBox(e: PointerEvent | KeyboardEvent) {
 				return e.composedPath().find(el => {
 					const element = <HTMLElement>el
 					return element.className == "item"
 				})
 			}
-		
+
+			function findBoxes(e: KeyboardEvent) {
+				const grid = <HTMLElement>e.composedPath().find(el => {
+					const element = <HTMLElement>el
+					return element.className == "grid items"
+				})
+				return grid.children
+			}
+			
+
+			function goToMulePack(nextMulePack: Element) {
+				const nextBox = <HTMLElement>nextMulePack?.shadowRoot?.querySelectorAll(".item")[0]
+				nextBox?.focus()
+			}
+
 			const draggable = makeDraggable(getDragState, setDragState)
 
-			this.addEventListener("keypress", (e: KeyboardEvent) => {
+			this.addEventListener("keydown", (e: KeyboardEvent) => {
 				const target = <HTMLElement>e.target
-				const MulePackBox = <HTMLElement>findBox(e)
-				const notEmpty = MulePackBox?.draggable
 				const MulePack = <MulePack>target
-				const tradeStarted = this.sourcePack
-				if (MulePackBox && notEmpty && !tradeStarted) {
-					const i = Number(MulePackBox.dataset.index)
-					setDragState({
-						...dragState,
-						animatedBox: MulePackBox
-					})
-					MulePackBox.setAttribute("data-focus", "")
-					MulePack.onTradeStart(i)
+				const currentPackSize = getPackSize(MulePack.size)
+				const MulePackBox = <HTMLElement>findBox(e)
+				const boxes = findBoxes(e)
+				const indexOfCurrentMulePack = mulePacks.indexOf(MulePack)
+				const nextMulePack = mulePacks[indexOfCurrentMulePack + 1]
+				const previousMulePack = mulePacks[indexOfCurrentMulePack - 1]
+				const indexOfCurrentBox = Number(MulePackBox.dataset.index)
+				const isBorderBox = borderBoxChecker(boxes, indexOfCurrentBox, currentPackSize.columns)
+				if (e.key == "ArrowRight" && currentPackSize.columns >= 1 && indexOfCurrentBox <= boxes.length) {
+					if(isBorderBox.borderRight()) return goToMulePack(nextMulePack)
+					const newBox = <HTMLElement>boxes[indexOfCurrentBox + 1]?.children[0]
+					newBox?.focus()
 				}
-				if (tradeStarted) {
-					const i = Number(MulePackBox.dataset.index)
-					const focusedBox = getDragState().animatedBox
-					focusedBox?.removeAttribute("data-focus")
-					MulePack.onTradeCommit(i)
+				if (e.key == "ArrowLeft" && currentPackSize.columns >= 1 && indexOfCurrentBox >= 0) {
+					if(isBorderBox.borderLeft()) return goToMulePack(previousMulePack)
+					const newBox = <HTMLElement>boxes[indexOfCurrentBox - 1]?.children[0]
+					newBox?.focus()
+				}
+				if (e.key == "ArrowDown" && currentPackSize.rows >= 1 && indexOfCurrentBox <= boxes.length) {
+					if(isBorderBox.borderBottom()) return goToMulePack(nextMulePack)
+						const newBox = <HTMLElement>boxes[indexOfCurrentBox + currentPackSize.columns].children[0]
+						newBox.focus()
+				}
+				if (e.key == "ArrowUp" && currentPackSize.rows >= 1 && indexOfCurrentBox <= boxes.length) {
+					if (isBorderBox.borderTop()) return goToMulePack(previousMulePack)
+						const newBox = <HTMLElement>boxes[indexOfCurrentBox - currentPackSize.columns]?.children[0]
+						newBox.focus()
+				}
+			})
+			this.addEventListener("keypress", (e: KeyboardEvent) => {
+				if (e.key == "Enter") {
+					const target = <HTMLElement>e.target
+					const MulePackBox = <HTMLElement>findBox(e)
+					const notEmpty = MulePackBox?.draggable
+					const MulePack = <MulePack>target
+					const tradeStarted = this.sourcePack
+					if (MulePackBox && notEmpty && !tradeStarted) {
+						const i = Number(MulePackBox.dataset.index)
+						setDragState({
+							...dragState,
+							animatedBox: MulePackBox
+						})
+						MulePackBox.setAttribute("data-selected", "")
+						MulePack.onTradeStart(i)
+					}
+					if (tradeStarted) {
+						const i = Number(MulePackBox.dataset.index)
+						const focusedBox = getDragState().animatedBox
+						focusedBox?.removeAttribute("data-selected")
+						MulePack.onTradeCommit(i)
+					}
 				}
 			})
 			window.addEventListener("pointermove", (e: PointerEvent) => {

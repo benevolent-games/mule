@@ -39,7 +39,7 @@ export const styles = css`
 	svg {
 		pointer-events: none;
 	}
-	.item[data-focus] {
+	.item[data-selected] {
 		outline: whitesmoke solid 1px;
 		outline-offset: -1px;
 		outline-width: 2px;
