@@ -12,12 +12,12 @@
 	],
 	"scripts": {
 		"build": "run-s clean && run-p importly compile",
-		"dev": "run-p start watch",
 		"clean": "rimraf x && mkdirp x",
 		"importly": "importly --host=node_modules < package-lock.json > x/importmap.json",
 		"compile": "tsc",
 		"watch": "tsc -w",
-		"start": "http-server",
+		"http": "http-server",
+		"start": "run-p http watch",
 		"test": "exit 0"
 	},
 	"dependencies": {
