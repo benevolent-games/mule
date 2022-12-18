@@ -33,6 +33,7 @@ export const BoxGrid = view({}, use => (
 			${boxes.map((box, i) => html`
 			<div class=item-box>
 				<div
+				autofocus
 				tabindex="0"
 				draggable=${box?.item ? true : false}
 				data-index=${i}
