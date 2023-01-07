@@ -22,7 +22,8 @@
 	},
 	"dependencies": {
 		"@chasemoskal/magical": "^0.1.2",
-		"lit": "^2.4.1"
+		"lit": "^2.4.1",
+		"xiome": "^0.0.33"
 	},
 	"devDependencies": {
 		"es-module-shims": "^1.6.2",
