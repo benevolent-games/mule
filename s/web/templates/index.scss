@@ -1,0 +1,52 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Gentium+Book+Basic:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-family: "Gentium Book Basic", serif;
+	background: fixed linear-gradient(to right top, #662d03, #703307, #79390c, #834010, #8d4614, #8d4614, #8d4614, #8d4614, #834010, #79390c, #703307, #662d03);
+	color: whitesmoke;
+}
+
+header {
+	text-align: center;
+	max-width: max-content;
+	margin: 5rem auto 7rem;
+}
+
+header > p {
+	margin-left: 1.5rem;
+	color: whitesmoke;
+}
+
+header a {
+	color: #d695ff;
+}
+
+h1 {
+	font-size: 4rem;
+	text-shadow: 4px 6px 1px #0003;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: -5px;
+}
+
+.character-eq {
+	display: flex;
+}
+
+.inventory-items {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+mule-character-equipment {
+	margin: 0 1em;
+}
